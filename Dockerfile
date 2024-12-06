@@ -3,19 +3,14 @@ FROM ubuntu:latest
 
 RUN docker pull node:latest
 RUN docker pull python:latest
-
 RUN docker pull pufferpanel/pufferpanel
 
 RUN docker run -d --name pufferpanel -p 8080:8080 pufferpanel/pufferpanel
 
 RUN sleep 10
 
-RUN curl -X POST
-http://localhost:8080/api/v1/users
--H 'Content-Type: application/json'
--u 'admin:admin'
--d '{"name": "Wesley", "email": "adm@adm.com", "password": "nnnnnnnn", "permissions": "all"}'
+RUN docker exec -it pufferpanel /pufferpanel/pufferpanel user add Wesley adm@adm.com nnnnnnnn all
 
 EXPOSE 8080
 
-CMD ["docker", "exec", "-d", "pufferpanel", "/usr/bin/pufferpanel"]
+CMD ["docker", "exec", "-it", "pufferpanel", "/pufferpanel/pufferpanel"]
