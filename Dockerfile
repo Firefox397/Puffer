@@ -1,7 +1,7 @@
 
 FROM docker:latest
 
-RUN pkg update -y && pkg install -y \
+RUN apt update -y && apt install -y \
   docker \
   nodejs \
   unzip \
